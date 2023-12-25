@@ -117,11 +117,18 @@ int main(int argc, char** argv) {
     // Manage Gamestate 
     bool game_state = IDLE;
 
+    InitAudioDevice();
     InitWindow(WINDOW_W, WINDOW_H, WINDOW_T); 
     SetTargetFPS(WINDOW_FPS); 
 
+    // Game sounds
+    Sound main_sound = LoadSound("./audio/base.mp3");
+
     while (!WindowShouldClose()) {
         ClearBackground(BLACK); 
+
+        // Play main song 
+        PlaySound(main_sound);
 
         // Move panels
         if (game_state) {
@@ -164,6 +171,8 @@ int main(int argc, char** argv) {
         EndDrawing(); 
     }
 
+    UnloadSound(main_sound);
+    CloseAudioDevice();
     CloseWindow();
     exit(EXIT_SUCCESS);
 }
